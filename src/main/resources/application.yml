@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: assetflow
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/assetflow}
+    username: ${DB_USER:assetflow}
+    password: ${DB_PASSWORD:assetflow}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none   # le schéma est géré uniquement par Flyway
+  flyway:
+    locations: classpath:db/migration
+
+assetflow:
+  timezone: Europe/Paris
+  scheduler:
+    cron: "0 0 6 * * *"   # génération des ordres de travail préventifs chaque matin à 6 h
+    horizon-days: 7        # un plan est « dû » s'il tombe dans les 7 prochains jours

@@ -1,0 +1,47 @@
+### Lancer l'application avec le profil « demo » (données fictives), puis exécuter ces requêtes
+### (IntelliJ HTTP Client ou extension REST Client de VS Code)
+
+### Équipements
+GET http://localhost:8080/api/assets
+
+### Pièces de rechange du convoyeur CONV-01 (éclatement de la nomenclature de son modèle)
+GET http://localhost:8080/api/assets/1/spare-parts
+
+### Nomenclature diffusée du modèle
+GET http://localhost:8080/api/items/MOD-CONV-200/bom
+
+### Éclatement multiniveau
+GET http://localhost:8080/api/items/MOD-CONV-200/explosion
+
+### Cas d'emploi d'un roulement
+GET http://localhost:8080/api/items/PRT-BRG-6204/where-used
+
+### Pièces sous le stock minimum
+GET http://localhost:8080/api/items/below-minimum
+
+### Déclarer une panne avec arrêt
+POST http://localhost:8080/api/work-orders
+Content-Type: application/json
+
+{"assetId": 1, "priority": "P1", "description": "Bande déchirée", "assetStopped": true}
+
+### Démarrer l'intervention
+POST http://localhost:8080/api/work-orders/1/start
+
+### Consommer une pièce
+POST http://localhost:8080/api/work-orders/1/parts
+Content-Type: application/json
+
+{"itemCode": "PRT-BELT-200", "quantity": 1}
+
+### Terminer avec un compte rendu
+POST http://localhost:8080/api/work-orders/1/complete
+Content-Type: application/json
+
+{"report": "Bande remplacée, tension réglée, essai à vide OK"}
+
+### Générer les OT préventifs arrivés à échéance
+POST http://localhost:8080/api/preventive-plans/generate
+
+### Indicateurs de fiabilité (MTTR, MTBF, disponibilité)
+GET http://localhost:8080/api/assets/1/kpis?from=2026-11-01&to=2026-11-30

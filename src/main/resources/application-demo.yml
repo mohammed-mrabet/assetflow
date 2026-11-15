@@ -1,0 +1,4 @@
+# Profil de démonstration : ajoute des données fictives (ligne de conditionnement)
+spring:
+  flyway:
+    locations: classpath:db/migration,classpath:db/demo
